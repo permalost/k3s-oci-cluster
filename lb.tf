@@ -54,17 +54,17 @@ resource "oci_load_balancer_backend" "k3s_http_backend" {
 }
 
 # HTTPS
-resource "oci_load_balancer_certificate" "k3s_https_certificate" {
-  certificate_name = "K3s_lb_https_cert"
-  load_balancer_id = oci_load_balancer_load_balancer.k3s_public_lb.id
+# resource "oci_load_balancer_certificate" "k3s_https_certificate" {
+#   certificate_name = "K3s_lb_https_cert"
+#   load_balancer_id = oci_load_balancer_load_balancer.k3s_public_lb.id
 
-  private_key        = file(var.PATH_TO_PUBLIC_LB_KEY)
-  public_certificate = file(var.PATH_TO_PUBLIC_LB_CERT)
+#   private_key        = file(var.PATH_TO_PUBLIC_LB_KEY)
+#   public_certificate = file(var.PATH_TO_PUBLIC_LB_CERT)
 
-  lifecycle {
-    create_before_destroy = true
-  }
-}
+#   lifecycle {
+#     create_before_destroy = true
+#   }
+# }
 
 resource "oci_load_balancer_listener" "k3s_https_listener" {
   default_backend_set_name = oci_load_balancer_backend_set.k3s_https_backend_set.name
@@ -72,12 +72,12 @@ resource "oci_load_balancer_listener" "k3s_https_listener" {
   name                     = "K3s_https_listener"
   port                     = var.https_lb_port
   protocol                 = "HTTP"
-  ssl_configuration {
-    certificate_name        = oci_load_balancer_certificate.k3s_https_certificate.certificate_name
-    cipher_suite_name       = "oci-default-ssl-cipher-suite-v1"
-    verify_peer_certificate = false
-    verify_depth            = 1
-  }
+  # ssl_configuration {
+  #   certificate_name        = oci_load_balancer_certificate.k3s_https_certificate.certificate_name
+  #   cipher_suite_name       = "oci-default-ssl-cipher-suite-v1"
+  #   verify_peer_certificate = false
+  #   verify_depth            = 1
+  # }
 }
 
 resource "oci_load_balancer_backend_set" "k3s_https_backend_set" {

@@ -1,37 +1,21 @@
-variable "compartment_ocid" {
-
-}
-
-variable "tenancy_ocid" {
-
-}
-
-variable "user_ocid" {
-
-}
-
-variable "fingerprint" {
-
-}
-
-variable "private_key_path" {
-
-}
-
-variable "region" {
-  default = "<change_me>"
-}
-
 module "k3s_cluster" {
   region                 = var.region
-  availability_domain    = "<change_me>"
+  availability_domain    = "Xjyd:PHX-AD-1"
   compartment_ocid       = var.compartment_ocid
-  PATH_TO_PUBLIC_LB_CERT = "<change_me>"
-  PATH_TO_PUBLIC_LB_KEY  = "<change_me>"
-  my_public_ip_cidr      = "<change_me>"
-  cluster_name           = "<change_me>"
-  environment            = "staging"
-  k3s_token              = "<change_me>"
+  cluster_name           = var.cluster_name
+  k3s_token              = var.k3s_token
+  my_public_ip_cidr      = var.my_public_ip_cidr
+  environment            = var.environment
+  PATH_TO_PUBLIC_LB_CERT = var.PATH_TO_PUBLIC_LB_CERT
+  PATH_TO_PUBLIC_LB_KEY  = var.PATH_TO_PUBLIC_LB_KEY
+  oci_core_subnet_cidr10 = var.oci_core_subnet_cidr10
+  oci_core_subnet_cidr11 = var.oci_core_subnet_cidr11
+  k3s_server_pool_size   = var.k3s_server_pool_size
+  k3s_worker_pool_size   = var.k3s_worker_pool_size
+  install_longhorn       = var.install_longhorn
+  PATH_TO_PUBLIC_KEY     = var.PATH_TO_PUBLIC_KEY
+  PATH_TO_PRIVATE_KEY    = var.PATH_TO_PRIVATE_KEY
+  os_image_id            = var.os_image_id
   source                 = "../"
 }
 
